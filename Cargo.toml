@@ -1,0 +1,5 @@
+[workspace]
+members = [
+    "backend"
+]
+resolver = "2"  # Use the edition 2021 resolver

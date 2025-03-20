@@ -1,0 +1,459 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #f4f4f9; /* Light background */
+  color: #333; /* Dark text */
+}
+
+body.light-mode {
+  background-color: #f4f4f9; /* Light background */
+  color: #333; /* Dark text */
+}
+
+body.dark-mode {
+  background-color: #1a1a2e; /* Dark blue background */
+  color: #e0e0e0; /* Light text for readability */
+}
+
+.app-container {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+h1, h2 {
+  text-align: center;
+  color: inherit; /* Adapt to the current theme */
+}
+
+form {
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 20px;
+  background: var(--form-bg, #fff); /* Default light theme */
+  color: inherit;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.5s ease-in-out;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body.dark-mode form {
+  --form-bg: #2a2a3b; /* Dark grey with a hint of blue */
+  border: 1px solid #3e3e5e; /* Subtle border for dark mode */
+}
+
+input[type="text"], input[type="password"], input[type="email"], input[type="radio"] {
+  width: calc(100% - 20px);
+  padding: 10px;
+  margin: 10px 0;
+  background-color: var(--input-bg, #fff); /* Default light theme */
+  color: inherit;
+  border: 1px solid var(--input-border, #ccc);
+  border-radius: 4px;
+  font-size: 16px;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+body.dark-mode input[type="text"],
+body.dark-mode input[type="password"],
+body.dark-mode input[type="email"],
+body.dark-mode input[type="radio"] {
+  --input-bg: #2a2a3b; /* Dark grey with a hint of blue */
+  --input-border: #4e4e6e; /* Subtle border for inputs */
+}
+
+button {
+  background-color: var(--button-bg, #4a90e2); /* Default light theme */
+  color: var(--button-text, white);
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease, color 0.3s ease;
+}
+
+body.dark-mode button {
+  --button-bg: #3e3e5e; /* Dark purple */
+  --button-text: #e0e0e0; /* Light text for dark mode */
+}
+
+button:hover {
+  background-color: #357ABD; /* Darker blue */
+  transform: scale(1.05);
+}
+
+button:active {
+  transform: scale(0.95);
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  background-color: var(--list-bg, #fff); /* Default light theme */
+  color: inherit;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body.dark-mode ul {
+  --list-bg: #2a2a3b; /* Dark grey with a hint of blue */
+}
+
+li {
+  background: var(--message-bg, #fff); /* Default light theme */
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  animation: slideIn 0.5s ease-in-out;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body.dark-mode li {
+  --message-bg: #3e3e5e; /* Dark purple */
+  color: #c0c0c0; /* Slightly lighter grey for text */
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.menu a, .menu button {
+  display: block;
+  width: 150px;
+  text-align: center;
+  padding: 10px;
+  background-color: #4a90e2; /* Cool blue */
+  color: white;
+  text-decoration: none;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.menu a:hover, .menu button:hover {
+  background-color: #357ABD; /* Darker blue */
+  transform: scale(1.05);
+}
+
+.menu a:active, .menu button:active {
+  transform: scale(0.95);
+}
+
+.menu-container {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+.menu-button {
+  background-color: #4a90e2; /* Cool blue */
+  color: white;
+  border: none;
+  padding: 10px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%; /* Circular button */
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px; /* Space between underscores */
+  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+}
+
+.menu-button.open {
+  background-color: #357ABD; /* Darker blue when open */
+  transform: rotate(90deg); /* Rotate for a stylish effect */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.menu-icon {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background-color: white;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.menu-button.open .menu-icon:nth-child(1) {
+  transform: translateY(6px) rotate(45deg); /* Top underscore transforms into part of an X */
+}
+
+.menu-button.open .menu-icon:nth-child(2) {
+  opacity: 0; /* Middle underscore disappears */
+}
+
+.menu-button.open .menu-icon:nth-child(3) {
+  transform: translateY(-6px) rotate(-45deg); /* Bottom underscore transforms into part of an X */
+}
+
+.menu-button:hover {
+  background-color: #357ABD; /* Darker blue */
+  transform: scale(1.05);
+}
+
+.menu-dropdown {
+  position: absolute;
+  top: 60px;
+  left: 10px;
+  background-color: var(--dropdown-bg, white); /* Default light theme */
+  color: inherit;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  display: none; /* Initially hidden */
+  flex-direction: column;
+  gap: 10px;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+}
+
+body.dark-mode .menu-dropdown {
+  --dropdown-bg: #2a2a3b; /* Dark grey with a hint of blue */
+}
+
+.menu-dropdown.show {
+  display: flex; /* Show dropdown when toggled */
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.menu-dropdown a, .menu-dropdown button {
+  display: block;
+  width: 100px;
+  text-align: center;
+  padding: 10px;
+  background-color: #4a90e2; /* Cool blue */
+  color: white;
+  text-decoration: none;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.menu-dropdown a:hover, .menu-dropdown button:hover {
+  background-color: #357ABD; /* Darker blue */
+  transform: scale(1.05);
+}
+
+.menu-dropdown a:active, .menu-dropdown button:active {
+  transform: scale(0.95);
+}
+
+.messages {
+  background-color: var(--messages-bg, #fff); /* Default light theme */
+  color: var(--messages-text, #333); /* Default dark text */
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body.dark-mode .messages {
+  --messages-bg: #1a1a2e; /* Dark blue background */
+  --messages-text: #b0b0b0; /* Slightly dark grey text for readability */
+}
+
+.message {
+  margin: 10px 0;
+  padding: 10px;
+  background-color: var(--message-bg, #f9f9f9); /* Default light theme */
+  color: inherit; /* Inherit text color from parent */
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body.dark-mode .message {
+  --message-bg: #2a2a2a; /* Dark theme message background */
+}
+
+.message-bubble {
+  max-width: 50%; /* Reduced size */
+  padding: 8px 12px; /* Adjusted padding */
+  border-radius: 12px;
+  font-size: 13px;
+  line-height: 1.4;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.message-bubble-left {
+  background-color: #f1f0f0; /* Light grey for other users */
+  color: #333;
+  text-align: left;
+  border-top-left-radius: 0;
+}
+
+.message-bubble-right {
+  background-color: #4a90e2; /* Cool blue for logged-in user */
+  color: white;
+  text-align: right;
+  border-top-right-radius: 0;
+}
+
+body.dark-mode .message-bubble-left {
+  background-color: #2a2a3b; /* Dark grey for other users in dark mode */
+  color: #e0e0e0;
+}
+
+body.dark-mode .message-bubble-right {
+  background-color: #357ABD; /* Darker blue for logged-in user in dark mode */
+  color: #e0e0e0;
+}
+
+.message-container {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.message-container-left {
+  justify-content: flex-start;
+}
+
+.message-container-right {
+  justify-content: flex-end;
+}
+
+.user-icon {
+  width: 30px;
+  height: 30px;
+  background-color: #a3c9f1; /* Lighter blue for the user icon container */
+  color: #4a90e2; /* Darker blue for the icon */
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  margin-right: 10px;
+}
+
+.message-container-right .user-icon {
+  margin-left: 10px;
+  margin-right: 0;
+}
+
+.bottom-button {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #4a90e2; /* Cool blue */
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.bottom-button:hover {
+  background-color: #357ABD; /* Darker blue */
+  transform: scale(1.05);
+}
+
+bottom-button:active {
+  transform: scale(0.95);
+}
+
+.home-container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: var(--form-bg, #fff); /* Adapt to theme */
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.leaderboard, .tasks, .new-tasks {
+  margin-bottom: 20px;
+}
+
+.leaderboard h2, .tasks h2, .new-tasks h2 {
+  color: var(--button-bg, #4a90e2); /* Adapt to theme */
+  margin-bottom: 10px;
+}
+
+.leaderboard ul, .tasks ul {
+  list-style: none;
+  padding: 0;
+}
+
+.leaderboard li, .tasks li {
+  background-color: var(--list-bg, #f9f9f9); /* Adapt to theme */
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body.dark-mode .leaderboard li, body.dark-mode .tasks li {
+  background-color: #2a2a3b; /* Dark grey with a hint of blue */
+  color: #e0e0e0; /* Light text for readability */
+}
+
+.toggle-button {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  background-color: #4a90e2; /* Cool blue */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.toggle-button:hover {
+  background-color: #357ABD; /* Darker blue */
+  transform: scale(1.05);
+}
+
+.toggle-button:active {
+  transform: scale(0.95);
+}
