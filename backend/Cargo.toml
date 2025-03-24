@@ -12,10 +12,11 @@ serde_json = "1.0"
 log = "0.4"
 env_logger = "0.9"
 actix-cors = "0.6"
-sqlx = { version = "0.7", features = ["runtime-tokio-rustls", "sqlite", "macros"] }
+sqlx = { version = "0.7", features = ["runtime-tokio-rustls", "sqlite", "macros", "chrono"] }
 argon2 = "0.5"
 actix-session = { version = "0.9", features = ["cookie-session"] }
-chrono = "0.4" # For timestamps in recent activity
+chrono = { version = "0.4", features = ["serde"] } # Enable serde for chrono
+base64 = "0.21"
 
 [[bin]]
 name = "backend"

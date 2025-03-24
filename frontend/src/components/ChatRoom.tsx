@@ -2,6 +2,11 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './ChatRoom.css'; // Added CSS import
 
+interface User {
+  id: number;
+  username: string;
+}
+
 interface Message {
   0: number; // userId
   1: string; // message
@@ -10,25 +15,51 @@ interface Message {
 const ChatRoom: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [message, setMessage] = useState<string>('');
+  const [recipientId, setRecipientId] = useState<string>('');
+  const [users, setUsers] = useState<User[]>([]); // Ensure users is always an array
   const loggedInUserId = 1; // Replace with actual logged-in user ID
 
   useEffect(() => {
     // Fetch initial messages from the backend
-    axios.get('/api/messages').then((response) => {
-      setMessages(response.data);
-    }).catch((error) => {
-      console.error('Error fetching messages:', error);
-    });
+    axios.get('/api/messages')
+      .then((response) => {
+        setMessages(response.data);
+      })
+      .catch((error) => {
+        console.error('Error fetching messages:', error);
+      });
+
+    // Fetch users from the backend
+    axios.get('/api/users')
+      .then((response) => {
+        if (Array.isArray(response.data)) {
+          setUsers(response.data); // Ensure the response is an array
+        } else {
+          console.error('Unexpected response format for users:', response.data);
+          setUsers([]); // Fallback to an empty array
+        }
+      })
+      .catch((error) => {
+        console.error('Error fetching users:', error);
+        setUsers([]); // Fallback to an empty array
+      });
   }, []);
 
   const sendMessage = () => {
+    if (!recipientId) {
+      alert('Please select a recipient');
+      return;
+    }
+
     // Send message to the backend
-    axios.post('/api/messages', { message }).then((response) => {
-      setMessages([...messages, [loggedInUserId, response.data]]); // Assuming user_id 1 for simplicity
-      setMessage('');
-    }).catch((error) => {
-      console.error('Error sending message:', error);
-    });
+    axios.post(`/api/messages/${loggedInUserId}`, { message, recipient_id: parseInt(recipientId) })
+      .then(() => {
+        setMessages([...messages, [loggedInUserId, message]]);
+        setMessage('');
+      })
+      .catch((error) => {
+        console.error('Error sending message:', error);
+      });
   };
 
   const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -74,6 +105,24 @@ const ChatRoom: React.FC = () => {
         ))}
       </div>
       <div className="input-container">
+        {/* Recipient selector */}
+        <div className="recipient-selector">
+          <label htmlFor="recipient">Recipient:</label>
+          <select
+            id="recipient"
+            value={recipientId}
+            onChange={(e) => setRecipientId(e.target.value)}
+          >
+            <option value="">Select a user</option>
+            {users
+              .filter((user) => user.id !== loggedInUserId)
+              .map((user) => (
+                <option key={user.id} value={user.id}>
+                  {user.username}
+                </option>
+              ))}
+          </select>
+        </div>
         {/* Add button for files/media */}
         <label className="input-action-button add-button">
           <i className="fas fa-plus"></i>

@@ -94,6 +94,31 @@
   background-color: #167bd6;
 }
 
+/* Recipient selector */
+.recipient-selector {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.recipient-selector label {
+  font-weight: 500;
+}
+
+.recipient-selector select {
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.dark-mode .recipient-selector select {
+  background-color: #444;
+  color: #e0e0e0;
+  border-color: #555;
+}
+
 /* Responsive design */
 @media (max-width: 768px) {
   .input-container {

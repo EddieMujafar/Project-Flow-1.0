@@ -36,7 +36,7 @@ interface HomeProps {
 
 const Home: React.FC<HomeProps> = ({ userId }) => {
   const [users, setUsers] = useState<User[]>([]);
-  const [tasks, setTasks] = useState<Task[]>([]);
+  const [tasks] = useState<Task[]>([]);
   const [error, setError] = useState('');
   const [challenges, setChallenges] = useState<Challenge[]>([
     { id: 1, title: 'Send Messages', description: 'Send 5 messages to earn points', points: 50, progress: 2, goal: 5 },
@@ -53,23 +53,23 @@ const Home: React.FC<HomeProps> = ({ userId }) => {
   const [quickMessageContent, setQuickMessageContent] = useState('');
   const [showConfetti, setShowConfetti] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [showAllLeaderboard, setShowAllLeaderboard] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const responseUsers = await fetch('http://localhost:8000/api/users', {
+        const responseUsers = await fetch('/api/users', {
           credentials: 'include',
         });
-        const responseTasks = await fetch('http://localhost:8000/api/tasks', {
+        const responseActivity = await fetch(`/api/activity/${userId}`, {
           credentials: 'include',
         });
-        if (responseUsers.ok && responseTasks.ok) {
+
+        if (responseUsers.ok && responseActivity.ok) {
           const dataUsers = await responseUsers.json();
-          const dataTasks = await responseTasks.json();
+          const dataActivity = await responseActivity.json();
           setUsers(dataUsers);
-          setTasks(dataTasks);
+          setRecentActivity(dataActivity);
 
           // Calculate user's points and rank
           const currentUser = dataUsers.find((user: User) => user.id === userId);
@@ -117,17 +117,41 @@ const Home: React.FC<HomeProps> = ({ userId }) => {
 
   const handleQuickMessageSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Mock implementation for Quick Message
-    const newActivity = {
-      id: recentActivity.length + 1,
-      description: `You sent a message to ${quickMessageRecipient}`,
-      timestamp: new Date().toISOString(),
-    };
-    setRecentActivity([newActivity, ...recentActivity]);
-    setQuickMessageRecipient('');
-    setQuickMessageContent('');
-    setShowQuickMessage(false);
-  };
+    try {
+        const recipient = users.find((user) => user.username === quickMessageRecipient);
+        if (!recipient) {
+            setError('Recipient not found');
+            return;
+        }
+
+        const response = await fetch(`http://localhost:8000/api/messages/${userId}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ message: quickMessageContent, recipient_id: recipient.id }),
+            credentials: 'include',
+        });
+
+        if (response.ok) {
+            // Refresh recent activity
+            const activityResponse = await fetch(`http://localhost:8000/api/activity/${userId}`, {
+                credentials: 'include',
+            });
+            if (activityResponse.ok) {
+                const activityData = await activityResponse.json();
+                setRecentActivity(activityData);
+            }
+
+            setQuickMessageRecipient('');
+            setQuickMessageContent('');
+            setShowQuickMessage(false);
+        } else {
+            setError('Failed to send quick message');
+        }
+    } catch (err) {
+        setError('Failed to send quick message');
+        console.error('Quick message error:', err);
+    }
+};
 
   if (loading) {
     return <div className="loading">Loading...</div>;

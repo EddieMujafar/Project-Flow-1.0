@@ -1,0 +1,93 @@
+.people-you-may-know-container {
+  max-width: 800px;
+  margin: 80px auto 20px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.dark-mode .people-you-may-know-container {
+  background-color: #2a2a2a;
+}
+
+.people-you-may-know-container h2 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.people-you-may-know-container p {
+  text-align: center;
+  color: #666;
+}
+
+.people-you-may-know-container ul {
+  list-style: none;
+  padding: 0;
+}
+
+.people-you-may-know-container li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.dark-mode .people-you-may-know-container li {
+  border-bottom: 1px solid #444;
+}
+
+.people-you-may-know-container li:last-child {
+  border-bottom: none;
+}
+
+.people-you-may-know-container .username {
+  font-weight: 500;
+}
+
+.people-you-may-know-container .points {
+  color: #666;
+}
+
+.add-friend-btn {
+  padding: 5px 10px;
+  background-color: #1e90ff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.add-friend-btn:hover {
+  background-color: #167bd6;
+}
+
+.error {
+  color: #ff4d4f;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .people-you-may-know-container {
+    margin: 60px 10px 10px;
+    padding: 15px;
+  }
+
+  .people-you-may-know-container h2 {
+    font-size: 1.2rem;
+  }
+
+  .people-you-may-know-container li {
+    font-size: 0.9rem;
+  }
+
+  .add-friend-btn {
+    font-size: 0.8rem;
+    padding: 4px 8px;
+  }
+}

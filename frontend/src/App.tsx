@@ -1,15 +1,20 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Routes, Link, Navigate, useLocation } from 'react-router-dom';
+import { Route, Routes, Link, Navigate, useLocation } from 'react-router-dom';
 import Home from './Home';
 import Login from './Login';
 import Register from './components/Register';
 import ChatRoom from './components/ChatRoom';
-import './App.css'; // Added CSS import
+import FindUsers from './components/FindUsers';
+import Friends from './components/Friends'; // Ensure Friends component exists
+import FriendsSuggestions from './components/FriendsSuggestions';
+import PeopleYouMayKnow from './components/PeopleYouMayKnow';
+import './App.css';
 
 const App: React.FC = () => {
   const [userId, setUserId] = useState<number | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
+  const [otherUsersOpen, setOtherUsersOpen] = useState(false);
 
   const handleLogout = async () => {
     try {
@@ -29,9 +34,6 @@ const App: React.FC = () => {
   };
 
   const location = useLocation();
-
-  // Debug: Log userId to verify its value
-  console.log('Current userId:', userId, 'Path:', location.pathname);
 
   return (
     <div className={`app-container ${darkMode ? 'dark-mode' : 'light-mode'}`}>
@@ -53,6 +55,29 @@ const App: React.FC = () => {
               <Link to="/messages" title="Messages">
                 <i className="fas fa-comments"></i> Messages
               </Link>
+              <Link to="/find-users" title="Find Users">
+                <i className="fas fa-search"></i> Find Users
+              </Link>
+              <div className="other-users-menu">
+                <button
+                  onClick={() => setOtherUsersOpen(!otherUsersOpen)}
+                  aria-expanded={otherUsersOpen}
+                >
+                  <i className="fas fa-users"></i> Other Users
+                  <i className={`fas fa-chevron-${otherUsersOpen ? 'up' : 'down'}`}></i>
+                </button>
+                <div className={`submenu ${otherUsersOpen ? 'show' : ''}`}>
+                  <Link to="/friends" title="Friends">
+                    <i className="fas fa-user-friends"></i> Friends
+                  </Link>
+                  <Link to="/friends-suggestions" title="Friends Suggestions">
+                    <i className="fas fa-user-plus"></i> Friends Suggestions
+                  </Link>
+                  <Link to="/people-you-may-know" title="People You May Know">
+                    <i className="fas fa-user-check"></i> People You May Know
+                  </Link>
+                </div>
+              </div>
               <button onClick={toggleTheme} title="Toggle Theme" aria-label="Toggle Theme">
                 <i className={`fas ${darkMode ? 'fa-sun' : 'fa-moon'}`}></i>{' '}
                 {darkMode ? 'Light Mode' : 'Dark Mode'}
@@ -82,6 +107,10 @@ const App: React.FC = () => {
         <Route path="/login" element={<Login setUserId={setUserId} />} />
         <Route path="/register" element={<Register />} />
         <Route path="/messages" element={userId ? <ChatRoom /> : <Navigate to="/login" />} />
+        <Route path="/find-users" element={userId ? <FindUsers userId={userId} /> : <Navigate to="/login" />} />
+        <Route path="/friends" element={userId ? <Friends userId={userId} /> : <Navigate to="/login" />} />
+        <Route path="/friends-suggestions" element={userId ? <FriendsSuggestions userId={userId} /> : <Navigate to="/login" />} />
+        <Route path="/people-you-may-know" element={userId ? <PeopleYouMayKnow userId={userId} /> : <Navigate to="/login" />} />
       </Routes>
     </div>
   );

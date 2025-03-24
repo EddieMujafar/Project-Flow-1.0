@@ -1,0 +1,93 @@
+.friends-suggestions-container {
+  max-width: 800px;
+  margin: 80px auto 20px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.dark-mode .friends-suggestions-container {
+  background-color: #2a2a2a;
+}
+
+.friends-suggestions-container h2 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.friends-suggestions-container p {
+  text-align: center;
+  color: #666;
+}
+
+.friends-suggestions-container ul {
+  list-style: none;
+  padding: 0;
+}
+
+.friends-suggestions-container li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.dark-mode .friends-suggestions-container li {
+  border-bottom: 1px solid #444;
+}
+
+.friends-suggestions-container li:last-child {
+  border-bottom: none;
+}
+
+.friends-suggestions-container .username {
+  font-weight: 500;
+}
+
+.friends-suggestions-container .points {
+  color: #666;
+}
+
+.add-friend-btn {
+  padding: 5px 10px;
+  background-color: #1e90ff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.add-friend-btn:hover {
+  background-color: #167bd6;
+}
+
+.error {
+  color: #ff4d4f;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .friends-suggestions-container {
+    margin: 60px 10px 10px;
+    padding: 15px;
+  }
+
+  .friends-suggestions-container h2 {
+    font-size: 1.2rem;
+  }
+
+  .friends-suggestions-container li {
+    font-size: 0.9rem;
+  }
+
+  .add-friend-btn {
+    font-size: 0.8rem;
+    padding: 4px 8px;
+  }
+}
