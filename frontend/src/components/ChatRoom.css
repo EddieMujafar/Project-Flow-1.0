@@ -1,0 +1,118 @@
+/* Add your ChatRoom-specific styles here */
+
+/* Input container */
+.input-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  background-color: #f5f5f5;
+  border-radius: 25px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.dark-mode .input-container {
+  background-color: #333;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+/* Action buttons (Add, Mic, Emoji) */
+.input-action-button {
+  background: none;
+  border: none;
+  color: #666;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.dark-mode .input-action-button {
+  color: #bbb;
+}
+
+.input-action-button:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  color: #1e90ff;
+}
+
+.dark-mode .input-action-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Specific styles for each button */
+.add-button,
+.mic-button,
+.emoji-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Text input */
+.input-container input {
+  flex: 1;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 20px;
+  font-size: 1rem;
+  background-color: #fff;
+  transition: background-color 0.3s ease;
+}
+
+.dark-mode .input-container input {
+  background-color: #444;
+  color: #e0e0e0;
+}
+
+.input-container input:focus {
+  outline: none;
+  background-color: #f0f0f0;
+}
+
+.dark-mode .input-container input:focus {
+  background-color: #555;
+}
+
+/* Send button */
+.input-container button {
+  padding: 10px 20px;
+  background-color: #1e90ff;
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.input-container button:hover {
+  background-color: #167bd6;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .input-container {
+    gap: 5px;
+    padding: 8px;
+  }
+
+  .input-action-button {
+    font-size: 1rem;
+    padding: 6px;
+  }
+
+  .input-container input {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+  }
+
+  .input-container button {
+    padding: 8px 15px;
+    font-size: 0.9rem;
+  }
+}

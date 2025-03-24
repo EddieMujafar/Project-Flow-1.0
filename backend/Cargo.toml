@@ -15,6 +15,7 @@ actix-cors = "0.6"
 sqlx = { version = "0.7", features = ["runtime-tokio-rustls", "sqlite", "macros"] }
 argon2 = "0.5"
 actix-session = { version = "0.9", features = ["cookie-session"] }
+chrono = "0.4" # For timestamps in recent activity
 
 [[bin]]
 name = "backend"

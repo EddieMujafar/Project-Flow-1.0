@@ -3,7 +3,8 @@ import { BrowserRouter as Router, Route, Routes, Link, Navigate, useLocation } f
 import Home from './Home';
 import Login from './Login';
 import Register from './components/Register';
-import ChatRoom from './components/ChatRoom'; // Import ChatRoom component
+import ChatRoom from './components/ChatRoom';
+import './App.css'; // Added CSS import
 
 const App: React.FC = () => {
   const [userId, setUserId] = useState<number | null>(null);
@@ -29,9 +30,11 @@ const App: React.FC = () => {
 
   const location = useLocation();
 
+  // Debug: Log userId to verify its value
+  console.log('Current userId:', userId, 'Path:', location.pathname);
+
   return (
     <div className={`app-container ${darkMode ? 'dark-mode' : 'light-mode'}`}>
-      {/* Conditionally display "Chat App" header */}
       {(location.pathname === '/login' || location.pathname === '/') && <h1>Chat App</h1>}
       <nav>
         {userId ? (
@@ -50,12 +53,12 @@ const App: React.FC = () => {
               <Link to="/messages" title="Messages">
                 <i className="fas fa-comments"></i> Messages
               </Link>
-              <button onClick={handleLogout} title="Logout" aria-label="Logout">
-                <i className="fas fa-sign-out-alt"></i> Logout
-              </button>
               <button onClick={toggleTheme} title="Toggle Theme" aria-label="Toggle Theme">
                 <i className={`fas ${darkMode ? 'fa-sun' : 'fa-moon'}`}></i>{' '}
                 {darkMode ? 'Light Mode' : 'Dark Mode'}
+              </button>
+              <button onClick={handleLogout} title="Logout" aria-label="Logout">
+                <i className="fas fa-sign-out-alt"></i> Logout
               </button>
             </div>
           </div>
@@ -78,7 +81,7 @@ const App: React.FC = () => {
         <Route path="/" element={userId ? <Home userId={userId} /> : <Navigate to="/login" />} />
         <Route path="/login" element={<Login setUserId={setUserId} />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/messages" element={<ChatRoom />} /> {/* Messaging features on /messages */}
+        <Route path="/messages" element={userId ? <ChatRoom /> : <Navigate to="/login" />} />
       </Routes>
     </div>
   );

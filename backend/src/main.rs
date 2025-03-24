@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 use sqlx::{FromRow, SqlitePool};
 use std::sync::{Arc, Mutex}; // Add this import for HttpRequest
 use actix_web::cookie::{time::Duration as ActixDuration, SameSite};
+use chrono::{DateTime, Utc};
 
 type UserId = i64; // SQLite uses i64 for AUTOINCREMENT IDs
 
@@ -71,6 +72,31 @@ struct RegisterRequest {
 struct AuthRequest {
     username: String,
     password: String,
+}
+
+#[derive(Serialize, FromRow)]
+struct Challenge {
+    id: i32,
+    title: String,
+    description: String,
+    points: i32,
+    progress: i32,
+    goal: i32,
+    user_id: i32,
+}
+
+#[derive(Serialize, FromRow)]
+struct Activity {
+    id: i32,
+    description: String,
+    timestamp: DateTime<Utc>,
+    user_id: i32,
+}
+
+#[derive(Deserialize)]
+struct UpdateChallengeProgress {
+    challenge_id: i32,
+    progress: i32,
 }
 
 async fn get_messages(chat_room: web::Data<ChatRoom>) -> impl Responder {
@@ -228,6 +254,71 @@ async fn index() -> actix_web::Result<actix_files::NamedFile> {
     Ok(fs::NamedFile::open("../frontend/build/index.html")?)
 }
 
+async fn get_challenges(pool: web::Data<SqlitePool>, user_id: web::Path<i32>) -> impl Responder {
+    let challenges = sqlx::query_as::<_, Challenge>("SELECT * FROM challenges WHERE user_id = ?")
+        .bind(user_id.into_inner())
+        .fetch_all(pool.get_ref())
+        .await
+        .unwrap_or_default();
+    HttpResponse::Ok().json(challenges)
+}
+
+async fn update_challenge_progress(
+    pool: web::Data<SqlitePool>,
+    user_id: web::Path<i32>,
+    req: web::Json<UpdateChallengeProgress>,
+) -> impl Responder {
+    let user_id = user_id.into_inner();
+    let challenge = sqlx::query_as::<_, Challenge>("SELECT * FROM challenges WHERE id = ? AND user_id = ?")
+        .bind(req.challenge_id)
+        .bind(user_id)
+        .fetch_optional(pool.get_ref())
+        .await
+        .unwrap();
+
+    if let Some(challenge) = challenge {
+        if challenge.progress < challenge.goal {
+            let new_progress = req.progress.min(challenge.goal);
+            sqlx::query("UPDATE challenges SET progress = ? WHERE id = ? AND user_id = ?")
+                .bind(new_progress)
+                .bind(req.challenge_id)
+                .bind(user_id)
+                .execute(pool.get_ref())
+                .await
+                .unwrap();
+
+            if new_progress == challenge.goal {
+                sqlx::query("UPDATE users SET points = points + ? WHERE id = ?")
+                    .bind(challenge.points)
+                    .bind(user_id)
+                    .execute(pool.get_ref())
+                    .await
+                    .unwrap();
+
+                sqlx::query("INSERT INTO activity (description, timestamp, user_id) VALUES (?, ?, ?)")
+                    .bind(format!("Completed challenge: {}", challenge.title))
+                    .bind(Utc::now())
+                    .bind(user_id)
+                    .execute(pool.get_ref())
+                    .await
+                    .unwrap();
+            }
+
+            return HttpResponse::Ok().body("Progress updated");
+        }
+    }
+    HttpResponse::BadRequest().body("Invalid challenge or already completed")
+}
+
+async fn get_activity(pool: web::Data<SqlitePool>, user_id: web::Path<i32>) -> impl Responder {
+    let activities = sqlx::query_as::<_, Activity>("SELECT * FROM activity WHERE user_id = ? ORDER BY timestamp DESC LIMIT 5")
+        .bind(user_id.into_inner())
+        .fetch_all(pool.get_ref())
+        .await
+        .unwrap_or_default();
+    HttpResponse::Ok().json(activities)
+}
+
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     std::env::set_var("RUST_LOG", "info");
@@ -281,6 +372,9 @@ async fn main() -> std::io::Result<()> {
             .route("/api/messages", web::get().to(get_messages))
             .route("/api/messages", web::post().to(post_message))
             .route("/api/logout", web::post().to(logout))
+            .route("/api/challenges/{user_id}", web::get().to(get_challenges))
+            .route("/api/challenges/{user_id}", web::post().to(update_challenge_progress))
+            .route("/api/activity/{user_id}", web::get().to(get_activity))
             .route("/favicon.ico", web::get().to(favicon))
             .service(fs::Files::new("/static", "../frontend/build/static").use_hidden_files())
             .service(

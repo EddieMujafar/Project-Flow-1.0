@@ -1,0 +1,104 @@
+/* Add your App-specific styles here */
+
+/* Menu button (hamburger) */
+.menu-button {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #fff;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.light-mode .menu-button {
+  background: rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  color: #333;
+}
+
+.menu-button:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.light-mode .menu-button:hover {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.menu-button.open {
+  transform: rotate(90deg);
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.light-mode .menu-button.open {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+/* Dropdown menu */
+.menu-dropdown {
+  display: none;
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background-color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+  min-width: 220px;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.menu-dropdown.show {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.dark-mode .menu-dropdown {
+  background-color: #2a2a2a;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.menu-dropdown a,
+.menu-dropdown button {
+  display: flex;
+  align-items: center;
+  padding: 12px 20px;
+  color: #333;
+  text-decoration: none;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.dark-mode .menu-dropdown a,
+.dark-mode .menu-dropdown button {
+  color: #e0e0e0;
+  border-bottom: 1px solid #444;
+}
+
+.menu-dropdown a:last-child,
+.menu-dropdown button:last-child {
+  border-bottom: none;
+}
+
+.menu-dropdown a:hover,
+.menu-dropdown button:hover {
+  background-color: #1e90ff;
+  color: #fff;
+}
+
+.menu-dropdown i {
+  margin-right: 12px;
+  font-size: 1.1rem;
+  width: 20px;
+  text-align: center;
+}

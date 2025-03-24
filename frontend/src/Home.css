@@ -1,0 +1,431 @@
+/* Add your Home-specific styles here */
+
+/* User Stats Card */
+.user-stats {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.dark-mode .user-stats {
+  background-color: #2a2a2a;
+}
+
+.user-stats h2 {
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+}
+
+.stats-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #f0f0f0;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 1.1rem;
+}
+
+.dark-mode .stat-item {
+  background-color: #444;
+}
+
+.stat-item i {
+  font-size: 1.3rem;
+  color: #1e90ff;
+}
+
+.stat-item span {
+  font-weight: bold;
+  color: #1e90ff;
+}
+
+.quick-message-btn {
+  padding: 10px 20px;
+  background-color: #1e90ff;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.quick-message-btn:hover {
+  background-color: #167bd6;
+  transform: scale(1.05);
+}
+
+.quick-message-btn i {
+  margin-right: 8px;
+}
+
+/* Leaderboard */
+.leaderboard {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.dark-mode .leaderboard {
+  background-color: #2a2a2a;
+}
+
+.leaderboard h2 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+}
+
+.leaderboard ul {
+  list-style: none;
+  padding: 0;
+}
+
+.leaderboard li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  border-bottom: 1px solid #e0e0e0;
+  transition: background-color 0.3s ease;
+}
+
+.dark-mode .leaderboard li {
+  border-bottom: 1px solid #444;
+}
+
+.leaderboard li:last-child {
+  border-bottom: none;
+}
+
+.leaderboard li:hover {
+  background-color: #f0f0f0;
+}
+
+.dark-mode .leaderboard li:hover {
+  background-color: #444;
+}
+
+.leaderboard li.current-user {
+  background-color: #e6f0ff;
+  font-weight: bold;
+}
+
+.dark-mode .leaderboard li.current-user {
+  background-color: #3a4a66;
+}
+
+.leaderboard .rank {
+  font-weight: bold;
+  color: #1e90ff;
+}
+
+.leaderboard .username {
+  flex: 1;
+  margin-left: 10px;
+}
+
+.leaderboard .points {
+  color: #666;
+}
+
+/* Challenges */
+.challenges {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.dark-mode .challenges {
+  background-color: #2a2a2a;
+}
+
+.challenges h2 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+}
+
+.challenges ul {
+  list-style: none;
+  padding: 0;
+}
+
+.challenges li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  border-bottom: 1px solid #e0e0e0;
+  transition: transform 0.3s ease;
+}
+
+.dark-mode .challenges li {
+  border-bottom: 1px solid #444;
+}
+
+.challenges li:last-child {
+  border-bottom: none;
+}
+
+.challenges li.completed {
+  background-color: #e6ffe6;
+}
+
+.dark-mode .challenges li.completed {
+  background-color: #3a664a;
+}
+
+.challenges .challenge-info {
+  flex: 1;
+}
+
+.challenges h3 {
+  margin: 0 0 5px;
+  font-size: 1.2rem;
+}
+
+.challenges p {
+  margin: 5px 0;
+  text-align: left;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 10px;
+  background-color: #e0e0e0;
+  border-radius: 5px;
+  overflow: hidden;
+  margin: 10px 0;
+}
+
+.dark-mode .progress-bar {
+  background-color: #444;
+}
+
+.progress {
+  height: 100%;
+  background-color: #1e90ff;
+  transition: width 0.5s ease;
+}
+
+.complete-btn {
+  padding: 8px 15px;
+  background-color: #1e90ff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.complete-btn:hover {
+  background-color: #167bd6;
+  transform: scale(1.05);
+}
+
+.complete-btn:active {
+  animation: bounce 0.3s ease;
+}
+
+/* Bounce animation for completed challenges */
+@keyframes bounce {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+/* Recent Activity */
+.recent-activity {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.dark-mode .recent-activity {
+  background-color: #2a2a2a;
+}
+
+.recent-activity h2 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+}
+
+.recent-activity ul {
+  list-style: none;
+  padding: 0;
+}
+
+.recent-activity li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.dark-mode .recent-activity li {
+  border-bottom: 1px solid #444;
+}
+
+.recent-activity li:last-child {
+  border-bottom: none;
+}
+
+.recent-activity p {
+  margin: 0;
+}
+
+.recent-activity .timestamp {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+/* Loading state */
+.loading {
+  text-align: center;
+  font-size: 1.5rem;
+  margin-top: 100px;
+  color: #666;
+}
+
+/* Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.dark-mode .modal {
+  background-color: #2a2a2a;
+}
+
+.modal h3 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.dark-mode .form-group select,
+.dark-mode .form-group textarea {
+  background-color: #444;
+  color: #e0e0e0;
+  border-color: #555;
+}
+
+.form-group textarea {
+  height: 100px;
+  resize: vertical;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.modal-actions button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.modal-actions button:first-child {
+  background-color: #1e90ff;
+  color: #fff;
+}
+
+.modal-actions button:first-child:hover {
+  background-color: #167bd6;
+}
+
+.modal-actions button:last-child {
+  background-color: #ddd;
+  color: #333;
+}
+
+.dark-mode .modal-actions button:last-child {
+  background-color: #555;
+  color: #e0e0e0;
+}
+
+.modal-actions button:last-child:hover {
+  background-color: #ccc;
+}
+
+.dark-mode .modal-actions button:last-child:hover {
+  background-color: #666;
+}
+
+/* View All Button */
+.view-all-btn {
+  display: block;
+  margin: 10px auto 0;
+  padding: 8px 15px;
+  background-color: #1e90ff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.view-all-btn:hover {
+  background-color: #167bd6;
+}
